@@ -1,5 +1,5 @@
 # Get My PS5
-A barebones, Axios-powered utility that checks for PlayStation 5 Disc Edition every 10 seconds, then opens your browser as soon as it's available.
+A barebones, Axios-powered utility that checks for PlayStation 5 (disc or digital edition) every 10 seconds, then opens your browser as soon as it's available.
 
 ## Requirements
 
@@ -17,6 +17,7 @@ npm install
 ```
 npm run watch
 ```
+3. You will be prompted which version (disc or digital) you would like to search for.
 
 Note: These commands also work with Yarn.
 
