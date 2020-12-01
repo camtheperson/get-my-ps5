@@ -2,7 +2,7 @@ const axios = require('axios').default;
 const open = require('open');
 const promptly = require('promptly');
 
-/** VARS */
+/** Constants */
 const playstationType = {
     "disc": {
         "id": 3005816,
@@ -21,16 +21,9 @@ const CHECK_INTERVAL = 10000; // How often should we check
  * Makes us look like we're human
  * @return string
  */
-function getGuid() {
-    return new Promise((resolve, reject) => {
-        axios.post("https://api.direct.playstation.com/commercewebservices/ps-direct-us/users/anonymous/carts?fields=BASIC")
-            .then(res => {
-                resolve(res.data.guid);
-            })
-            .catch(err => {
-                reject(err);
-            });
-    });
+async function getGuid() {
+    const response = await axios.post("https://api.direct.playstation.com/commercewebservices/ps-direct-us/users/anonymous/carts?fields=BASIC")
+    return response.data.guid;
 }
 
 /** addToCartLoop 
@@ -64,10 +57,14 @@ function addToCartLoop(choice, guid) {
 /** Let's do this */
 (async function() {
     const choice = await promptly.choose("Which version would you like? (disc or digital)", ["disc", "digital"]);
-    const guid = await getGuid();
+    const guid = getGuid();
     const cartResponse = await addToCartLoop(choice, guid);
 
     if (cartResponse) {
         open(playstationType[choice].url);
     }
 })();
+
+module.exports = {
+    getGuid,
+}
