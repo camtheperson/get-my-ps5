@@ -1,5 +1,5 @@
 # Get My PS5
-A barebones, Axios-powered utility that checks for PlayStation 5 (disc or digital edition) every 10 seconds, then opens your browser as soon as it's available.
+A simple CLI utility that checks for PlayStation 5 (disc or digital edition) every 10 seconds, then opens your browser as soon as it's available.
 
 ## Requirements
 
