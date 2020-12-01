@@ -11,11 +11,11 @@ A barebones, Axios-powered utility that checks for PlayStation 5 Disc Edition ev
 
 1. From the root directory, enter the following commands in Terminal (or whatever CLI you use):
 ```
-get-my-ps5 $ npm install
+npm install
 ```
 2. Once it's done installing:
 ```
-get-my-ps5 $ npm run watch
+npm run watch
 ```
 
 Note: These commands also work with Yarn.
