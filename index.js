@@ -1,7 +1,18 @@
 const axios = require('axios').default;
 const open = require('open');
+const promptly = require('promptly');
 
 /** VARS */
+const playstationType = {
+    "disc": {
+        "id": 3005816,
+        "url": "https://direct.playstation.com/en-us/consoles/console/playstation5-console.3005816",
+    },
+    "digital": {
+        "id": 3005817,
+        "url": "https://direct.playstation.com/en-us/consoles/console/playstation5-digital-edition-console.3005817",
+    }
+};
 let numTries = 1;
 const CHECK_INTERVAL = 10000; // How often should we check
 
@@ -26,22 +37,23 @@ function getGuid() {
  * Recursively tries to add the product to the cart
  * @return string
  */
-function addToCartLoop(guid) {
+function addToCartLoop(choice, guid) {
     return new Promise(resolve => {
         axios.post(`https://api.direct.playstation.com/commercewebservices/ps-direct-us/users/anonymous/carts/${guid}/entries`, {
             "product": {
-                "code": 3005816
+                "code": playstationType[choice].id
             },
             "quantity": 1,
             "cartIdCreated": false,
             "findingMethod": "pdp",
         }).catch(onFailure => {
-            console.log("No Playstation 5 consoles found. Trying again...");
+            console.log(`No Playstation 5 ${choice} edition consoles found. Trying again...`);
             console.log(`Times run: ${numTries}`);
+            console.log("");
             numTries++;
 
             setTimeout(() => {
-                addToCartLoop(guid);
+                addToCartLoop(choice, guid);
             }, CHECK_INTERVAL);
         }).then(onSuccess => {
             resolve(onSuccess);
@@ -51,10 +63,11 @@ function addToCartLoop(guid) {
 
 /** Let's do this */
 (async function() {
+    const choice = await promptly.choose("Which version would you like? (disc or digital)", ["disc", "digital"]);
     const guid = await getGuid();
-    const cartResponse = await addToCartLoop(guid);
+    const cartResponse = await addToCartLoop(choice, guid);
 
     if (cartResponse) {
-        open("https://direct.playstation.com/en-us/consoles/console/playstation5-console.3005816");
+        open(playstationType[choice].url);
     }
 })();
