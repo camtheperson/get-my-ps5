@@ -1,8 +1,10 @@
-const axios = require('axios').default;
 const open = require('open');
 const promptly = require('promptly');
 
+const {addToCartLoop, getGuid} = require("./utils");
+
 /** Constants */
+let numTries = 1;
 const playstationType = {
     "disc": {
         "id": 3005816,
@@ -13,58 +15,15 @@ const playstationType = {
         "url": "https://direct.playstation.com/en-us/consoles/console/playstation5-digital-edition-console.3005817",
     }
 };
-let numTries = 1;
-const CHECK_INTERVAL = 10000; // How often should we check
-
-/** getGuid 
- * Get unique identifier (guid) used in subsequent results
- * Makes us look like we're human
- * @return string
- */
-async function getGuid() {
-    const response = await axios.post("https://api.direct.playstation.com/commercewebservices/ps-direct-us/users/anonymous/carts?fields=BASIC")
-    return response.data.guid;
-}
-
-/** addToCartLoop 
- * Recursively tries to add the product to the cart
- * @return string
- */
-function addToCartLoop(choice, guid) {
-    return new Promise(resolve => {
-        axios.post(`https://api.direct.playstation.com/commercewebservices/ps-direct-us/users/anonymous/carts/${guid}/entries`, {
-            "product": {
-                "code": playstationType[choice].id
-            },
-            "quantity": 1,
-            "cartIdCreated": false,
-            "findingMethod": "pdp",
-        }).catch(onFailure => {
-            console.log(`No Playstation 5 ${choice} edition consoles found. Trying again...`);
-            console.log(`Times run: ${numTries}`);
-            console.log("");
-            numTries++;
-
-            setTimeout(() => {
-                addToCartLoop(choice, guid);
-            }, CHECK_INTERVAL);
-        }).then(onSuccess => {
-            resolve(onSuccess);
-        });
-    });
-}
 
 /** Let's do this */
 (async function() {
     const choice = await promptly.choose("Which version would you like? (disc or digital)", ["disc", "digital"]);
-    const guid = getGuid();
-    const cartResponse = await addToCartLoop(choice, guid);
+    console.log(`Searching for PlayStation 5 ${choice} edition...`);
+    const guid = await getGuid();
+    const cartResponse = await addToCartLoop(playstationType[choice].id, guid, numTries);
 
     if (cartResponse) {
         open(playstationType[choice].url);
     }
 })();
-
-module.exports = {
-    getGuid,
-}
