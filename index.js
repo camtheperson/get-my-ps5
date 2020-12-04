@@ -22,6 +22,7 @@ const playstationType = {
     console.log(`Searching for PlayStation 5 ${choice} edition...`);
     
     const onSuccess = () => {
+        console.log("Found it! Opening queue now...");
         open(playstationType[choice].url);
     };
 

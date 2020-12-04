@@ -36,15 +36,19 @@ function addToCartLoop(id, guid, numTries, checkInterval = 10000) {
  * @param checkInterval - How often to check in ms
  * @param onSuccess - Callback function for successful redirect
  */
-async function checkForPlaystationDirectRedirect(checkInterval, onSuccess) {
+async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, numTries = 1) {
     axios.get("https://direct.playstation.com/en-us/consoles/console/playstation5-console.3005816")
         .then(response => {
             if (response.data.indexOf("queue-it_log") > 0) {
-                console.log("")
                 onSuccess();
             } else {
                 setTimeout(() => {
-                    checkForPlaystationDirectRedirect(checkInterval, onSuccess);
+                    console.log("No redirect detected. Trying again...");
+                    console.log("Number of tries", numTries);
+                    console.log("");
+                    numTries++;
+
+                    checkForPlaystationDirectRedirect(checkInterval, onSuccess, numTries);
                 }, checkInterval);
             }
         });
