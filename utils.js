@@ -31,6 +31,25 @@ function addToCartLoop(id, guid, numTries, checkInterval = 10000) {
     });
 }
 
+/** checkForPlaystationDirectRedirect
+ * Recursively checks for redirects.
+ * @param checkInterval - How often to check in ms
+ * @param onSuccess - Callback function for successful redirect
+ */
+async function checkForPlaystationDirectRedirect(checkInterval, onSuccess) {
+    axios.get("https://direct.playstation.com/en-us/consoles/console/playstation5-console.3005816")
+        .then(response => {
+            if (response.data.indexOf("queue-it_log") > 0) {
+                onSuccess();
+            } else {
+                setTimeout(() => {
+                    checkForPlaystationDirectRedirect(checkInterval, callback);
+                }, checkInterval);
+            }
+        });
+}
+
+
 /** getGuid 
  * Get unique identifier (guid) used in subsequent results
  * Makes us look like we're human
@@ -43,5 +62,6 @@ async function getGuid() {
 
 module.exports = {
     addToCartLoop,
+    checkForPlaystationDirectRedirect,
     getGuid,
 }
