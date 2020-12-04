@@ -40,10 +40,11 @@ async function checkForPlaystationDirectRedirect(checkInterval, onSuccess) {
     axios.get("https://direct.playstation.com/en-us/consoles/console/playstation5-console.3005816")
         .then(response => {
             if (response.data.indexOf("queue-it_log") > 0) {
+                console.log("")
                 onSuccess();
             } else {
                 setTimeout(() => {
-                    checkForPlaystationDirectRedirect(checkInterval, callback);
+                    checkForPlaystationDirectRedirect(checkInterval, onSuccess);
                 }, checkInterval);
             }
         });
