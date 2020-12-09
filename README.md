@@ -1,27 +1,54 @@
 # Get My PS5
+
+![Reddit conversation](./bot-validation.jpg)
+
 A simple command line interface (CLI) utility that checks for PlayStation 5 (disc or digital edition) every 5 seconds, then opens your browser as soon as it's available.
+
+Donations appreciated, but not required:
+* [Cash App](https://cash.app/$CamThePerson)
+* [Venmo](https://venmo.com/Cameron-Hermens-1)
 
 ## Requirements
 
 1. [Node](https://nodejs.org/en/)
-1. NPM (comes with node) or [yarn](https://classic.yarnpkg.com/en/docs/install)
 
 ## Installation
 
+1. Install [Node](https://nodejs.org/en/) if you haven't already.
 
-1. From the root directory, enter the following commands in Terminal (or whatever CLI you use):
+2. From the root directory, enter the following command in Terminal (or whatever CLI you use):
 ```
 npm install
 ```
-2. Once it's done installing:
+
+## Usage
+
+1. Make sure you are logged into the [PlayStation Direct store](https://direct.playstation.com/en-us/hardware) prior to using this tool. Also make sure you have a payment method, and shipping and billing addresses configured within your PSN account.
+
+2. From the root directory, enter the following command in Terminal (or whatever CLI you use):
 ```
 npm run watch
 ```
 3. You will be prompted which version (disc or digital) you would like to search for.
 
-Note: These commands also work with Yarn.
+4. Let it run in the background. Your browser will open up and direct you to the PlayStation Direct store as soon as stock is available.
 
 ## FAQ
+
+### Does this thing actually work?
+
+As of Tuesday, December 8, 2020, I've received confirmation that this bot works:
+
+![Reddit conversation](./bot-validation.jpg)
+
+With that being said, this is a simple bot. It checks for a redirect, and then opens your web browser. 
+* You should make sure you're already logged in with a PSN ID.
+* You'll still need to complete reCAPTCHA on Sony's website.
+* There's still a solid chance you _won't_ get a PS5.
+
+However, I believe this utility will give most people a leg up, because they don't have to rely on a third-party service (such as NowInStock.net) to send you a notification that PS5s are in stock. You're running it directly from your computer, which removes a lot of overhead and (hopefully) gives you an advantage.
+
+Good luck!
 
 ### How does this work?
 
@@ -46,14 +73,3 @@ The previous version attempted to add the PlayStation 5 console directly to the 
 ### How do I stop this from running?
 
 Enter `Control + C` in your Terminal window, or exit the Terminal altogether.
-
-### Does this thing actually work?
-
-This is a simple bot. It checks for a redirect, and then opens your web browser. 
-* You should make sure you're already logged in with a PSN ID.
-* You'll still need to complete reCAPTCHA on Sony's website.
-* There's still a solid chance you _won't_ get a PS5.
-
-However, I believe this utility will give most people a leg up, because they don't have to rely on a third-party service (such as NowInStock.net) to send you a notification that PS5s are in stock. You're running it directly from your computer, which removes a lot of overhead and (hopefully) gives you an advantage.
-
-Good luck!
