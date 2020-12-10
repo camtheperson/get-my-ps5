@@ -39,7 +39,17 @@ function addToCartLoop(id, guid, numTries, checkInterval = 10000) {
 async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, numTries = 1) {
     axios.get("https://direct.playstation.com/en-us/consoles/console/playstation5-console.3005816")
         .then(response => {
-            if (response.data.indexOf("queue-it_log") > 0) {
+            if (response.data.indexOf("softblock") > 0) {
+                // They're sending us to reCAPTCHA, but it's not really the queue. Keep trying.
+                setTimeout(() => {
+                    console.log("No redirect detected. Trying again...");
+                    console.log("Number of tries", numTries);
+                    console.log("");
+                    numTries++;
+
+                    checkForPlaystationDirectRedirect(checkInterval, onSuccess, numTries);
+                }, checkInterval);
+            } else if (response.data.indexOf("queue-it_log") > 0) {
                 onSuccess();
             } else {
                 setTimeout(() => {
