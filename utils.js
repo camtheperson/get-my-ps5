@@ -36,32 +36,34 @@ function addToCartLoop(id, guid, numTries, checkInterval = 10000) {
  * @param checkInterval - How often to check in ms
  * @param onSuccess - Callback function for successful redirect
  */
-async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, numTries = 1) {
-    axios.get("https://direct.playstation.com/en-us/consoles/console/playstation5-console.3005816")
-        .then(response => {
-            if (response.data.indexOf("softblock") > 0) {
-                // They're sending us to reCAPTCHA, but it's not really the queue. Keep trying.
-                setTimeout(() => {
-                    console.log("No redirect detected. Trying again...");
-                    console.log("Number of tries", numTries);
-                    console.log("");
-                    numTries++;
+async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, version, browser, numTries = 1) {
+    // Create a new incognito session each request to clear cookies and cache
+    const context = await browser.createIncognitoBrowserContext();
+    const page = await context.newPage();
+    const url = `https://direct.playstation.com/en-us/consoles/console/playstation5-console.${version}`;
+    const response = await page.goto(url);
+    const responseBody = await response.text();
+    const responseStatus = await response.status();
 
-                    checkForPlaystationDirectRedirect(checkInterval, onSuccess, numTries);
-                }, checkInterval);
-            } else if (response.data.indexOf("queue-it_log") > 0) {
-                onSuccess();
-            } else {
-                setTimeout(() => {
-                    console.log("No redirect detected. Trying again...");
-                    console.log("Number of tries", numTries);
-                    console.log("");
-                    numTries++;
+    await context.close();
 
-                    checkForPlaystationDirectRedirect(checkInterval, onSuccess, numTries);
-                }, checkInterval);
-            }
-        });
+    // Uncomment to see the response body for debugging
+    // console.log(`Response body: ${responseBody}`);
+    // console.log(`Response status: ${responseStatus}`);
+
+    if (responseBody.indexOf("queue-it_log") > 0 && 
+        responseBody.indexOf("softblock") === -1) {
+        onSuccess();
+    } else {
+        setTimeout(() => {
+            console.log("No redirect detected. Trying again...");
+            console.log("Number of tries", numTries);
+            console.log("");
+            numTries++;
+
+            checkForPlaystationDirectRedirect(checkInterval, onSuccess, version, browser, numTries);
+        }, checkInterval);
+    }
 }
 
 
