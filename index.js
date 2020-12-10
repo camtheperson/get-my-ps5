@@ -26,5 +26,5 @@ const playstationType = {
         open(playstationType[choice].url);
     };
 
-    checkForPlaystationDirectRedirect(5000, onSuccess);
+    checkForPlaystationDirectRedirect(5000, onSuccess, playstationType[choice].id);
 })();
