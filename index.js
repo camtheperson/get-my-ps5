@@ -1,7 +1,8 @@
 const open = require('open');
 const promptly = require('promptly');
+const puppeteer = require('puppeteer');
 
-const {checkForPlaystationDirectRedirect} = require("./utils");
+const { checkForPlaystationDirectRedirect } = require("./utils");
 
 /** Constants */
 let numTries = 1;
@@ -26,5 +27,5 @@ const playstationType = {
         open(playstationType[choice].url);
     };
 
-    checkForPlaystationDirectRedirect(5000, onSuccess, playstationType[choice].id);
+    checkForPlaystationDirectRedirect(5000, onSuccess, playstationType[choice].id, await puppeteer.launch());
 })();

@@ -1,5 +1,4 @@
 const axios = require('axios').default;
-const puppeteer = require('puppeteer');
 
 /** addToCartLoop 
  * Recursively tries to add a product to the cart
@@ -37,19 +36,17 @@ function addToCartLoop(id, guid, numTries, checkInterval = 10000) {
  * @param checkInterval - How often to check in ms
  * @param onSuccess - Callback function for successful redirect
  */
-async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, version, numTries = 1) {
-    // Fairly taxing, but we launch a new instance each time to make sure there's nothing
-    // cached that would prevent the queue from showing
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
+async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, version, browser, numTries = 1) {
+    // Create a new incognito session each request to clear cookies and cache
+    const context = await browser.createIncognitoBrowserContext();
+    const page = await context.newPage();
     const url = `https://direct.playstation.com/en-us/consoles/console/playstation5-console.${version}`;
     const response = await page.goto(url);
     const responseBody = await response.text();
     const responseStatus = await response.status();
-    const responseStatusText = await response.statusText();
 
     console.log(`Response status: ${responseStatus}`);
-    
+
     // Uncomment to see the response body for debugging
     // console.log(`Response body: ${responseBody}`);
 
@@ -63,7 +60,7 @@ async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, versi
             console.log("");
             numTries++;
 
-            checkForPlaystationDirectRedirect(checkInterval, onSuccess, version, numTries);
+            checkForPlaystationDirectRedirect(checkInterval, onSuccess, version, browser, numTries);
         }, checkInterval);
     }
 }
