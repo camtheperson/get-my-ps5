@@ -47,6 +47,8 @@ async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, versi
 
     console.log(`Response status: ${responseStatus}`);
 
+    await context.close();
+
     // Uncomment to see the response body for debugging
     // console.log(`Response body: ${responseBody}`);
 
