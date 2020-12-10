@@ -45,12 +45,11 @@ async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, versi
     const responseBody = await response.text();
     const responseStatus = await response.status();
 
-    console.log(`Response status: ${responseStatus}`);
-
     await context.close();
 
     // Uncomment to see the response body for debugging
     // console.log(`Response body: ${responseBody}`);
+    // console.log(`Response status: ${responseStatus}`);
 
     if (responseBody.indexOf("queue-it_log") > 0 && 
         responseBody.indexOf("softblock") === -1) {
