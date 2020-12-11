@@ -73,7 +73,7 @@ function playAlarm() {
     if (os === "darwin") {
         cmd.runSync("afplay ./alarm.mp3");
     } else if (os === "win32") {
-        cmd.runSync("start wmplayer ./alarm.mp3");
+        cmd.runSync("start ./alarm.mp3");
     }
 }
 
