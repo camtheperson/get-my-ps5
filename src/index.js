@@ -19,14 +19,13 @@ const playstationType = {
 /** Let's do this */
 (async function() {
     const choice = await promptly.choose("Which version would you like? (disc or digital)", ["disc", "digital"]);
-    const alarm = await promptly.choose("Would you like to hear a loud, annoying alarm when we find your PS5? (Y or N)", ["Y", "N"])
+    const alarm = await promptly.confirm("Would you like to hear a loud, annoying alarm when we find your PS5? (Y or N)")
     console.log(`Searching for PlayStation 5 ${choice} edition...`);
-    
     const onSuccess = () => {
         console.log("Found it! Opening queue now...");
         open(playstationType[choice].url);
-        if (alarm.toUpperCase() === "Y") {
-            playAlarm();
+        if (alarm) {
+          playAlarm();
         }
     };
     checkForPlaystationDirectRedirect(5000, onSuccess, playstationType[choice].id, await puppeteer.launch());
