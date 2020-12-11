@@ -27,6 +27,8 @@ npm install
 
 ## Usage
 
+### Searching for your PlayStation 5
+
 1. Make sure you are logged into the [PlayStation Direct store](https://direct.playstation.com/en-us/hardware) prior to using this tool. Also make sure you have a payment method, and shipping and billing addresses configured within your PSN account.
 
 2. From the root directory, enter the following command in Terminal (or whatever CLI you use):
@@ -35,7 +37,17 @@ npm run watch
 ```
 3. You will be prompted which version (disc or digital) you would like to search for.
 
-4. Let it run in the background. Your browser will open up and direct you to the PlayStation Direct store as soon as stock is available.
+4. You will be prompted if you'd like a loud, annoying alarm sound to play (more details on testing this below).
+
+5. Let it run in the background. Your browser will open up and direct you to the PlayStation Direct store as soon as stock is available.
+
+### Testing out the alarm
+
+1. Run the following command to test the alarm sound. It's loud and annoying (you've been warned):
+
+```
+npm run sound
+```
 
 ## FAQ
 

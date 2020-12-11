@@ -1,4 +1,5 @@
-const axios = require('axios').default;
+const axios = require("axios").default;
+const cmd = require("node-cmd");
 
 /** addToCartLoop 
  * Recursively tries to add a product to the cart
@@ -66,6 +67,16 @@ async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, versi
     }
 }
 
+function playAlarm() {
+    const os = process.platform;
+
+    if (os === "darwin") {
+        cmd.runSync("afplay ./alarm.mp3");
+    } else if (os === "win32") {
+        cmd.runSync("start wmplayer ./alarm.mp3");
+    }
+}
+
 
 /** getGuid 
  * Get unique identifier (guid) used in subsequent results
@@ -81,4 +92,5 @@ module.exports = {
     addToCartLoop,
     checkForPlaystationDirectRedirect,
     getGuid,
+    playAlarm,
 }
