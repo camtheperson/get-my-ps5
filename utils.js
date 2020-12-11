@@ -38,14 +38,21 @@ function addToCartLoop(id, guid, numTries, checkInterval = 10000) {
  * @param onSuccess - Callback function for successful redirect
  */
 async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, version, browser, numTries = 1) {
+    // Declare these variables ahead of time in case of error catch
+    var response;
+    var responseBody;
+    var responseStatus;
     // Create a new incognito session each request to clear cookies and cache
     const context = await browser.createIncognitoBrowserContext();
     const page = await context.newPage();
     const url = `https://direct.playstation.com/en-us/consoles/console/playstation5-console.${version}`;
-    const response = await page.goto(url);
-    const responseBody = await response.text();
-    const responseStatus = await response.status();
-
+    try {
+        response = await page.goto(url);
+        responseBody = await response.text();
+        responseStatus = await response.status();
+    } catch(err) {
+        console.log("Error connecting to PS Direct");
+    }
     await context.close();
 
     // Uncomment to see the response body for debugging
