@@ -77,7 +77,6 @@ function playAlarm() {
     }
 }
 
-
 /** getGuid 
  * Get unique identifier (guid) used in subsequent results
  * Makes us look like we're human

@@ -41,10 +41,13 @@ npm run watch
 
 5. Let it run in the background. Your browser will open up and direct you to the PlayStation Direct store as soon as stock is available.
 
-### Testing out the alarm
 
-1. Run the following command to test the alarm sound. It's loud and annoying (you've been warned):
-
+### Other commands
+Test opening your browser:
+```
+npm run open
+```
+Test the alarm:
 ```
 npm run sound
 ```
