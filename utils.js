@@ -59,7 +59,7 @@ async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, versi
     // console.log(`Response body: ${responseBody}`);
     // console.log(`Response status: ${responseStatus}`);
 
-    if (responseBody.indexOf("queue-it_log") > 0 && 
+    if (responseBody && responseBody.indexOf("queue-it_log") > 0 && 
         responseBody.indexOf("softblock") === -1) {
         onSuccess();
     } else {
