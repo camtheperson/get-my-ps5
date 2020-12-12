@@ -1,6 +1,6 @@
 # Usage
 
-### Searching for your PlayStation 5
+## Searching for your PlayStation 5
 
 1. Make sure you are logged into the [PlayStation Direct store](https://direct.playstation.com/en-us/hardware) prior to using this tool. Also make sure you have a payment method, and shipping and billing addresses configured within your PSN account.
 
@@ -15,7 +15,7 @@ npm run watch
 5. Let it run in the background. Your browser will open up and direct you to the PlayStation Direct store as soon as stock is available.
 
 
-### Other commands
+## Other commands
 Test opening your browser:
 ```
 npm run open

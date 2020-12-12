@@ -1,6 +1,6 @@
 # FAQ
 
-### Does this thing actually work?
+## Does this thing actually work?
 
 As of Tuesday, December 8, 2020, I've received confirmation that this bot works:
 
@@ -15,13 +15,13 @@ However, I believe this utility will give most people a leg up, because they don
 
 Good luck!
 
-### How does this work?
+## How does this work?
 
 This works by hitting Sony PlayStation Direct store every 5 seconds, and checking for a redirect that indicates a queue is forming. As soon as the queue starts forming, it will open your browser and you'll be placed within the queue.
 
 The previous version attempted to add the PlayStation 5 console directly to the cart. Unfortunately, the API endpoint it was using for this didn't return a successful response even when PS5s were in stock, rendering it useless. So I changed it.
 
-### I'm not familiar with CLI and software. How do I install and get this running?
+## I'm not familiar with CLI and software. How do I install and get this running?
 
 1. Install [Node](https://nodejs.org/en/).
 1. Download this utility by clicking the green "Code" button above, and then click "Download ZIP."
@@ -35,6 +35,6 @@ The previous version attempted to add the PlayStation 5 console directly to the 
 1. Choose which console you prefer (disc or digital), and the search will begin.
 1. Let it do it's thing. It will open your browser as soon as it detects a queue forming.
 
-### How do I stop this from running?
+## How do I stop this from running?
 
-Enter `Control + C` in your Terminal window, or exit the Terminal altogether.
+Enter `Control + C` in your CLI window, or exit the CLI altogether.
