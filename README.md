@@ -92,3 +92,9 @@ The previous version attempted to add the PlayStation 5 console directly to the 
 ### How do I stop this from running?
 
 Enter `Control + C` in your Terminal window, or exit the Terminal altogether.
+
+### Troubleshooting / Common Issues
+
+### Error: (node:31888) UnhandledPromiseRejectionWarning: Error: Could not find browser revision 818858. Run "PUPPETEER_PRODUCT=firefox npm install" or "PUPPETEER_PRODUCT=firefox yarn install" to download a supported Firefox browser binary.
+
+To resolve this, issue the command "npm i puppeteer" from inside the get-my-ps5 directory
