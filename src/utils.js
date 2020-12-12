@@ -50,7 +50,7 @@ async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, versi
         responseBody = await response.text();
         responseStatus = await response.status();
     } catch(err) {
-        console.log("Error connecting to PS Direct");
+        console.log("Error connecting to PlayStation Direct store.");
     }
     await context.close();
 
@@ -63,7 +63,7 @@ async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, versi
         onSuccess();
     } else {
         setTimeout(() => {
-            console.log("No redirect detected. Trying again...");
+            console.log("No stock found. Trying again...");
             console.log("Number of tries", numTries);
             console.log("");
             numTries++;

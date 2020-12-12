@@ -29,6 +29,5 @@ const playstationType = {
         }
         open(playstationType[choice].url);
     };
-
     checkForPlaystationDirectRedirect(5000, onSuccess, playstationType[choice].id, await puppeteer.launch());
 })();
