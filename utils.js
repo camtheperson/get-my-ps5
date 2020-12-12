@@ -39,9 +39,9 @@ function addToCartLoop(id, guid, numTries, checkInterval = 10000) {
  */
 async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, version, browser, numTries = 1) {
     // Declare these variables ahead of time in case of error catch
-    var response;
-    var responseBody;
-    var responseStatus;
+    let response;
+    let responseBody;
+    let responseStatus;
     // Create a new incognito session each request to clear cookies and cache
     const context = await browser.createIncognitoBrowserContext();
     const page = await context.newPage();
