@@ -1,6 +1,6 @@
 # Get My PS5
 
-![Reddit conversation](./bot-validation.jpg)
+![Reddit conversation](./src/assets/bot-validation.jpg)
 
 A simple command line interface (CLI) utility that checks for PlayStation 5 (disc or digital edition) every 5 seconds, then opens your browser as soon as it's available.
 
@@ -58,7 +58,7 @@ npm run sound
 
 As of Tuesday, December 8, 2020, I've received confirmation that this bot works:
 
-![Reddit conversation](./bot-validation.jpg)
+![Reddit conversation](./src/assets/bot-validation.jpg)
 
 With that being said, this is a simple bot. It checks for a redirect, and then opens your web browser. 
 * You should make sure you're already logged in with a PSN ID.

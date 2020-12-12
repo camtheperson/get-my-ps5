@@ -38,14 +38,13 @@ function addToCartLoop(id, guid, numTries, checkInterval = 10000) {
  * @param onSuccess - Callback function for successful redirect
  */
 async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, version, browser, numTries = 1) {
-    // Declare these variables ahead of time in case of error catch
     let response;
     let responseBody;
     let responseStatus;
-    // Create a new incognito session each request to clear cookies and cache
     const context = await browser.createIncognitoBrowserContext();
     const page = await context.newPage();
     const url = `https://direct.playstation.com/en-us/consoles/console/playstation5-console.${version}`;
+
     try {
         response = await page.goto(url);
         responseBody = await response.text();
@@ -78,9 +77,9 @@ function playAlarm() {
     const os = process.platform;
 
     if (os === "darwin") {
-        cmd.runSync("afplay ./alarm.mp3");
+        cmd.runSync("afplay ./src/assets/alarm.mp3");
     } else if (os === "win32") {
-        cmd.runSync("start ./alarm.mp3");
+        cmd.runSync("start ./src/assets/alarm.mp3");
     }
 }
 

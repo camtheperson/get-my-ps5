@@ -6,13 +6,13 @@ const {checkForPlaystationDirectRedirect, playAlarm} = require("./utils");
 
 /** Constants */
 const playstationType = {
-    "disc": {
-        "id": 3005816,
-        "url": "https://direct.playstation.com/en-us/consoles/console/playstation5-console.3005816",
+    disc: {
+        id: 3005816,
+        url: "https://direct.playstation.com/en-us/consoles/console/playstation5-console.3005816",
     },
-    "digital": {
-        "id": 3005817,
-        "url": "https://direct.playstation.com/en-us/consoles/console/playstation5-digital-edition-console.3005817",
+    digital: {
+        id: 3005817,
+        url: "https://direct.playstation.com/en-us/consoles/console/playstation5-digital-edition-console.3005817",
     }
 };
 
