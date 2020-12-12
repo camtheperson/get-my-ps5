@@ -51,6 +51,7 @@ Test the alarm:
 ```
 npm run sound
 ```
+Note: Linux users will need VLC for this to work.
 
 ## FAQ
 
