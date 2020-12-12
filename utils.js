@@ -81,6 +81,9 @@ function playAlarm() {
         cmd.runSync("afplay ./alarm.mp3");
     } else if (os === "win32") {
         cmd.runSync("start ./alarm.mp3");
+    } else if (os === "linux") {
+        // requires VLC installed
+        cmd.runSync("nvlc ./alarm.mp3");
     }
 }
 
