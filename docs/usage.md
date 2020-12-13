@@ -1,4 +1,4 @@
-# Usage
+# How to use
 
 ## Searching for your PlayStation 5
 
@@ -13,6 +13,11 @@ npm run watch
 4. You will be prompted if you'd like a loud, annoying alarm sound to play (more details on testing this below). If you are using linux, you'll need to have VLC installed to hear the alarm. Check your system for the binary `which nvlc`.
 
 5. Let it run in the background. Your browser will open up and direct you to the PlayStation Direct store as soon as stock is available.
+
+**Important note:**
+If you're not using a VPN to mask your IP address (which we highly recommend), you may want to consider strategically limiting how long you let this script run. 
+
+The longer you let this script run, the more likely Sony may notice you repeatedly pinging their website. And then they may ban your IP, which will prevent you from accessing the PlayStation Direct store.
 
 
 ## Other commands

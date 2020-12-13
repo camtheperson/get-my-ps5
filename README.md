@@ -32,7 +32,7 @@ The biggest consequence of running this software is getting an IP-based ban on t
 ## Additional documentation
 
 * [How to install](./docs/installation.md)
-* [Usage](./docs/usage.md)
+* [How to use](./docs/usage.md)
 * [Troubleshooting](./docs/issues.md)
 * [Frequently asked questions](./docs/faq.md)
 * [Contributing](./docs/contributing.md)

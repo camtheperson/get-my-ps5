@@ -23,10 +23,6 @@ This software works by hitting Sony PlayStation Direct store every 5 seconds, an
 
 Check out our [detailed installation guide](./installation.md).
 
-## How do I stop this from running?
-
-Enter `Control + C` in your CLI window, or exit the CLI altogether.
-
 ## Is this safe?
 
 This software does not collect or ask for any personal information. And it is open source software, meaning you can look to see exactly how it works.
@@ -34,3 +30,12 @@ This software does not collect or ask for any personal information. And it is op
 If you're not using a VPN to mask your IP address (which we highly recommend), you may want to consider strategically limiting how long you let this script run. 
 
 The longer you let this script run, the more likely Sony may notice you repeatedly pinging their website. And then they may ban your IP, which will prevent you from accessing the PlayStation Direct store.
+
+## How do I stop this from running?
+
+Enter `Control + C` in your CLI window, or exit the CLI altogether.
+
+## How do I uninstall this?
+Delete the `get-my-ps5` folder.
+
+Seriously. That's it.
