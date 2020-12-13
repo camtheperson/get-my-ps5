@@ -1,5 +1,7 @@
 const axios = require("axios").default;
 const cmd = require("node-cmd");
+const superagent = require("superagent");
+
 
 /** addToCartLoop 
  * Recursively tries to add a product to the cart
@@ -63,15 +65,79 @@ async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, versi
         onSuccess();
     } else {
         setTimeout(() => {
-            console.log("No stock detected yet. Scanning again...");
-            console.log("Number of tries", numTries);
-            console.log("");
+            console.log("PS Direct: No queue detected yet. Scanning again...");
+            console.log(`Number of tries: ${numTries}\n`);
             numTries++;
 
             checkForPlaystationDirectRedirect(checkInterval, onSuccess, version, browser, numTries);
         }, checkInterval);
     }
 }
+
+async function watchWalmart(checkInterval, onWalmartSuccess, version, storeId, numWalmartTries = 1) {
+    let walmartStockStatus = await checkWalmartStock(version, storeId);
+    let walmartRetry;
+
+    switch(walmartStockStatus) {
+        case "walmartConnectionError":
+            console.log("Walmart Connection Error");
+            console.log(`Number of tries: ${numWalmartTries}\n`);
+            walmartRetry = true;
+            break;
+        case "walmartOnlineFound":
+            console.log("Found Walmart Online Inventory!");
+            onWalmartSuccess();
+            break;
+        case "walmartInStoreFound":
+            console.log("Found Walmart Store Pickup Inventory!");
+            onWalmartSuccess();
+            break;
+        case "noPage":
+            console.log("Product page not up yet.");
+            console.log(`Walmart Number of tries: ${numWalmartTries}`);
+            walmartRetry = true;
+            break;
+        default:
+            console.log("Walmart: No inventory detected yet.  Scanning again...");
+            console.log(`Walmart Number of tries: ${numWalmartTries}\n`);
+            walmartRetry = true;
+            break;
+    }
+    if (walmartRetry == true) {
+        numWalmartTries++;
+        setTimeout(() => {
+            watchWalmart(checkInterval, onWalmartSuccess, version, storeId, numWalmartTries);
+        }, checkInterval);
+    }
+}
+
+function checkWalmartStock(version, storeId) {
+    return new Promise(async (resolve, reject) => {
+        let testUrl = `https://putsreq.com/dp9X62F4g5Fj37MJ6aX0?version=${version}?storeId=${storeId}`;
+        let prodUrl = `https://search.mobile.walmart.com/v1/products-by-code/UPC/${version}?storeId=${storeId}`;
+        superagent.get(prodUrl)
+            .end((err, res) => {
+                if (err) {
+                    if (res.status == 444) {
+                        return resolve("noPage");
+                    } else {
+                    return resolve("walmartConnectionError");
+                    }
+            }
+            superagent.parse['application/json']
+            if (res.body.data.inStore && res.body.data.inStore.inventory.available == true) {
+                return resolve("walmartInStoreFound");
+            } else if (res.body.data.online.inventory && res.body.data.online.inventory.available == true) {
+                return resolve("walmartOnlineFound");
+            } else {
+                return resolve("noInventory");
+            }
+        })            
+            
+    })
+
+};
+
 
 function playAlarm() {
     const os = process.platform;
@@ -100,4 +166,6 @@ module.exports = {
     checkForPlaystationDirectRedirect,
     getGuid,
     playAlarm,
+    checkWalmartStock,
+    watchWalmart
 }
