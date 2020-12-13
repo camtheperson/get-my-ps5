@@ -17,24 +17,20 @@ Good luck!
 
 ## How does this work?
 
-This works by hitting Sony PlayStation Direct store every 5 seconds, and checking for a redirect that indicates a queue is forming. As soon as the queue starts forming, it will open your browser and you'll be placed within the queue.
-
-The previous version attempted to add the PlayStation 5 console directly to the cart. Unfortunately, the API endpoint it was using for this didn't return a successful response even when PS5s were in stock, rendering it useless. So I changed it.
+This software works by hitting Sony PlayStation Direct store every 5 seconds, and checking for a redirect that indicates a queue is forming. As soon as the queue starts forming, it will open your browser and you'll be placed within the queue.
 
 ## I'm not familiar with CLI and software. How do I install and get this running?
 
-1. Install [Node](https://nodejs.org/en/).
-1. Download this utility by clicking the green "Code" button above, and then click "Download ZIP."
-1. Unzip the contents.
-1. Next you'll need to open a CLI instance at the `get-my-ps5-master` folder:
-    * Windows users: open the folder, type `cmd` in the address bar, and hit enter. [Still need help?](https://www.itechtics.com/open-command-window-folder/#:~:text=You%20can%20open%20a%20command,be%20opened%20in%20the%20folder.)
-    * Mac users: right click the folder and select "New terminal at folder."
-1. Once you have the CLI instance open at the `get-my-ps5-master` folder, enter each command, then press enter:
-    * `npm install`
-    * `npm run watch`
-1. Choose which console you prefer (disc or digital), and the search will begin.
-1. Let it do it's thing. It will open your browser as soon as it detects a queue forming.
+Check out our [detailed installation guide](./installation.md).
 
 ## How do I stop this from running?
 
 Enter `Control + C` in your CLI window, or exit the CLI altogether.
+
+## Is this safe?
+
+This software does not collect or ask for any personal information. And it is open source software, meaning you can look to see exactly how it works.
+
+If you're not using a VPN to mask your IP address (which we highly recommend), you may want to consider strategically limiting how long you let this script run. 
+
+The longer you let this script run, the more likely Sony may notice you repeatedly pinging their website. And then they may ban your IP, which will prevent you from accessing the PlayStation Direct store.
