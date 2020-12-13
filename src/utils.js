@@ -38,26 +38,32 @@ function addToCartLoop(id, guid, numTries, checkInterval = 10000) {
  * @param onSuccess - Callback function for successful redirect
  */
 async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, version, browser, numTries = 1) {
-    // Create a new incognito session each request to clear cookies and cache
+    let response;
+    let responseBody;
+    let responseStatus;
     const context = await browser.createIncognitoBrowserContext();
     const page = await context.newPage();
     const url = `https://direct.playstation.com/en-us/consoles/console/playstation5-console.${version}`;
-    const response = await page.goto(url);
-    const responseBody = await response.text();
-    const responseStatus = await response.status();
 
+    try {
+        response = await page.goto(url);
+        responseBody = await response.text();
+        responseStatus = await response.status();
+    } catch(err) {
+        console.log("Error connecting to PlayStation Direct store.");
+    }
     await context.close();
 
     // Uncomment to see the response body for debugging
     // console.log(`Response body: ${responseBody}`);
     // console.log(`Response status: ${responseStatus}`);
 
-    if (responseBody.indexOf("queue-it_log") > 0 && 
+    if (responseBody && responseBody.indexOf("queue-it_log") > 0 && 
         responseBody.indexOf("softblock") === -1) {
         onSuccess();
     } else {
         setTimeout(() => {
-            console.log("No redirect detected. Trying again...");
+            console.log("No stock detected yet. Scanning again...");
             console.log("Number of tries", numTries);
             console.log("");
             numTries++;
@@ -71,9 +77,11 @@ function playAlarm() {
     const os = process.platform;
 
     if (os === "darwin") {
-        cmd.runSync("afplay ./alarm.mp3");
+        cmd.runSync("afplay ./src/assets/alarm.mp3");
     } else if (os === "win32") {
-        cmd.runSync("start ./alarm.mp3");
+        cmd.runSync("start ./src/assets/alarm.mp3");
+    } else if (os === "linux") {
+        cmd.runSync("nvlc ./src/assets/alarm.mp3"); // Requires VLC to be installed
     }
 }
 

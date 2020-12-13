@@ -6,13 +6,13 @@ const {checkForPlaystationDirectRedirect, playAlarm} = require("./utils");
 
 /** Constants */
 const playstationType = {
-    "disc": {
-        "id": 3005816,
-        "url": "https://direct.playstation.com/en-us/consoles/console/playstation5-console.3005816",
+    disc: {
+        id: 3005816,
+        url: "https://direct-queue.playstation.com/?c=sonyied&e=psdirectprodku1&t=https%3A%2F%2Fdirect.playstation.com%2Fen-us%2Fconsoles%2Fconsole%2Fplaystation5-console.3005816&cv=1089561812&cid=en-US",
     },
-    "digital": {
-        "id": 3005817,
-        "url": "https://direct.playstation.com/en-us/consoles/console/playstation5-digital-edition-console.3005817",
+    digital: {
+        id: 3005817,
+        url: "https://direct-queue.playstation.com/?c=sonyied&e=psdirectprodku1&t=https%3A%2F%2Fdirect.playstation.com%2Fen-us%2Fconsoles%2Fconsole%2Fplaystation5-digital-edition-console.3005817&cid=en-US",
     }
 };
 
@@ -24,11 +24,15 @@ const playstationType = {
     
     const onSuccess = () => {
         console.log("Found it! Opening queue now...");
+        open(playstationType[choice].url);
         if (alarm.toUpperCase() === "Y") {
             playAlarm();
         }
-        open(playstationType[choice].url);
     };
-
     checkForPlaystationDirectRedirect(5000, onSuccess, playstationType[choice].id, await puppeteer.launch());
 })();
+
+// Gracefully exit
+process.on('SIGINT', () => {
+    process.exit();
+});

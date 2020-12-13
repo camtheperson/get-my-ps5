@@ -1,8 +1,8 @@
 {
   "name": "get-my-ps5",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A barebones, Axios-powered utility that checks for PlayStation 5 Disc Edition every 10 seconds, then opens your browser as soon as it's available.",
-  "main": "index.js",
+  "main": "./src/index.js",
   "author": "Cameron Hermens",
   "license": "MIT",
   "dependencies": {
@@ -16,9 +16,9 @@
     "jest": "^26.6.3"
   },
   "scripts": {
-    "open": "node open",
-    "sound": "node sound",
+    "open": "node ./src/open",
+    "sound": "node ./src/sound",
     "test": "jest",
-    "watch": "node index"
+    "watch": "node ./src/index"
   }
 }
