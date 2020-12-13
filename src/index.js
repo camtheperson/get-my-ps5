@@ -1,6 +1,8 @@
 const open = require("open");
 const promptly = require("promptly");
 const puppeteer = require("puppeteer");
+const choice = ("disc");
+const alarm = ("Y");
 
 const {checkForPlaystationDirectRedirect, playAlarm} = require("./utils");
 
@@ -18,8 +20,8 @@ const playstationType = {
 
 /** Let's do this */
 (async function() {
-    const choice = await promptly.choose("Which version would you like? (disc or digital)", ["disc", "digital"]);
-    const alarm = await promptly.choose("Would you like to hear a loud, annoying alarm when we find your PS5? (Y or N)", ["Y", "N"])
+    if (choice == "") choice = await promptly.choose("Which version would you like? (disc or digital)", ["disc", "digital"]);
+    if (alarm == "") alarm = await promptly.choose("Would you like to hear a loud, annoying alarm when we find your PS5? (Y or N)", ["Y", "N"])
     console.log(`Searching for PlayStation 5 ${choice} edition...`);
     
     const onSuccess = () => {
