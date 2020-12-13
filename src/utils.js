@@ -63,7 +63,7 @@ async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, versi
         onSuccess();
     } else {
         setTimeout(() => {
-            console.log("No stock found. Trying again...");
+            console.log("No stock detected yet. Scanning again...");
             console.log("Number of tries", numTries);
             console.log("");
             numTries++;
@@ -81,8 +81,7 @@ function playAlarm() {
     } else if (os === "win32") {
         cmd.runSync("start ./src/assets/alarm.mp3");
     } else if (os === "linux") {
-        // requires VLC installed
-        cmd.runSync("nvlc ./src/assets/alarm.mp3");
+        cmd.runSync("nvlc ./src/assets/alarm.mp3"); // Requires VLC to be installed
     }
 }
 
