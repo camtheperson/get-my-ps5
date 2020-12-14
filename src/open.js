@@ -1,3 +1,3 @@
-const open = require("open");
+const {openURL} = require("./utils");
 
-open("https://direct.playstation.com/en-us/consoles/console/playstation5-console.3005816");
+openURL("https://direct.playstation.com/en-us/consoles/console/playstation5-console.3005816");

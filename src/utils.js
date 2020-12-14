@@ -1,3 +1,5 @@
+const open = require("open");
+const fs = require("fs");
 const axios = require("axios").default;
 const cmd = require("node-cmd");
 
@@ -81,8 +83,56 @@ function playAlarm() {
     } else if (os === "win32") {
         cmd.runSync("start ./src/assets/alarm.mp3");
     } else if (os === "linux") {
-        cmd.runSync("nvlc ./src/assets/alarm.mp3"); // Requires VLC to be installed
+        cmd.runSync("xdg-open ./src/assets/alarm.mp3");
     }
+}
+
+/** openURL
+ * Opens a URL using open, allows the users to configure
+ * browser and incognito via .env
+ * @param url string
+ * @returns void
+ */
+function openURL(url) {
+    const osChromeMap = {
+        "darwin": "google chrome",
+        "win32": "chrome",
+        "linux": "google-chrome"
+    }
+
+    const browserIncognitoMap = {
+        "chrome": "--incognito",
+        "firefox": "--private-window"
+    }
+
+    let config = undefined;
+
+    let browser = process.env.BROWSER;
+
+    if (browser) {
+        const isKnownBrowser = ["chrome", "firefox"].includes(browser);
+        const incognitoKey = browserIncognitoMap[browser];
+
+        // chrome requires platform specific key
+        // https://github.com/sindresorhus/open#app
+        if (browser === "chrome") {
+            browser = osChromeMap[process.platform];
+        }
+
+        if (!isKnownBrowser && !fs.existsSync(browser)) {
+            throw new Error("process.env.BROWSER must be either `chrome`, `firefox`, or a valid executable ");
+        }
+
+        const app = [browser];
+
+        if (isKnownBrowser && process.env.INCOGNITO && incognitoKey) {
+            app.push(incognitoKey)
+        }
+
+        config = { app };
+    }
+
+    open(url, config)
 }
 
 /** getGuid 
@@ -99,5 +149,6 @@ module.exports = {
     addToCartLoop,
     checkForPlaystationDirectRedirect,
     getGuid,
+    openURL,
     playAlarm,
 }
