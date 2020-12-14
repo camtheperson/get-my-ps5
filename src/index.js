@@ -17,8 +17,8 @@ const playstationType = {
 
 /** Let's do this */
 (async function() {
-    const choice = process.env.PS5_VERSION ?? await promptly.choose("Which version would you like? (disc or digital)", ["disc", "digital"]);
-    const alarm = process.env.PLAY_ALARM ?? await promptly.choose("Would you like to hear a loud, annoying alarm when we find your PS5? (Y or N)", ["Y", "N"])
+    const choice = process.env.PS5_VERSION ? process.env.PS5_VERSION : await promptly.choose("Which version would you like? (disc or digital)", ["disc", "digital"]);
+    const alarm = process.env.PLAY_ALARM ? process.env.PLAY_ALARM : await promptly.choose("Would you like to hear a loud, annoying alarm when we find your PS5? (Y or N)", ["Y", "N"])
     console.log(`Searching for PlayStation 5 ${choice} edition...`);
     
     const onSuccess = () => {
@@ -28,7 +28,7 @@ const playstationType = {
             playAlarm();
         }
     };
-    checkForPlaystationDirectRedirect(process.env.CHECK_INTERVOL ?? 5000, onSuccess, playstationType[choice].id, await puppeteer.launch());
+    checkForPlaystationDirectRedirect(process.env.CHECK_INTERVOL ? process.env.CHECK_INTERVOL : 5000, onSuccess, playstationType[choice].id, await puppeteer.launch());
 })();
 
 // Gracefully exit
