@@ -46,7 +46,10 @@ async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, versi
     const url = `https://direct.playstation.com/en-us/consoles/console/playstation5-console.${version}`;
 
     try {
-        response = await page.goto(url);
+        response = await page.goto(url, {
+            waitUntil: "load",
+            timeout: 0,
+        });
         responseBody = await response.text();
         responseStatus = await response.status();
     } catch(err) {
