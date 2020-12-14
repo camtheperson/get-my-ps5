@@ -129,7 +129,7 @@ function openURL(url) {
             app.push(incognitoKey)
         }
 
-        config = { app };
+        config = { app, url: true };
     }
 
     open(url, config)
