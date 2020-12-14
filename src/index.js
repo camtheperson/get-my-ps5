@@ -1,8 +1,8 @@
 const open = require("open");
 const promptly = require("promptly");
 const puppeteer = require("puppeteer");
-const choice = ("disc");
-const alarm = ("Y");
+const choice = ("");  // Define variable for non-interactive startup. (disc or digital)
+const alarm = ("");  // Define variable for non-interactive startup. (Y or N)
 
 const {checkForPlaystationDirectRedirect, playAlarm} = require("./utils");
 
