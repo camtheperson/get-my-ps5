@@ -81,7 +81,7 @@ function playAlarm() {
     } else if (os === "win32") {
         cmd.runSync("start ./src/assets/alarm.mp3");
     } else if (os === "linux") {
-        cmd.runSync("nvlc ./src/assets/alarm.mp3"); // Requires VLC to be installed
+        cmd.runSync("xdg-open ./src/assets/alarm.mp3");
     }
 }
 
