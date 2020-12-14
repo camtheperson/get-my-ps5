@@ -74,6 +74,11 @@ async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, versi
     }
 }
 
+/*  Recursively checks walmart mobile API for online and inStore stock status
+    storeId param based on user input -- set to 1 if no user input, will only
+    check online stock
+*/
+
 async function watchWalmart(checkInterval, onWalmartSuccess, version, storeId, numWalmartTries = 1) {
     let walmartStockStatus = await checkWalmartStock(version, storeId);
     let walmartRetry;
@@ -111,6 +116,7 @@ async function watchWalmart(checkInterval, onWalmartSuccess, version, storeId, n
     }
 }
 
+/*  Promise to return stock status.  */
 function checkWalmartStock(version, storeId) {
     return new Promise(async (resolve, reject) => {
         let testUrl = `https://putsreq.com/dp9X62F4g5Fj37MJ6aX0?version=${version}?storeId=${storeId}`;
