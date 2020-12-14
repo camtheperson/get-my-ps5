@@ -51,6 +51,8 @@ async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, versi
         responseStatus = await response.status();
     } catch(err) {
         console.log("Error connecting to PlayStation Direct store.");
+        console.log(err);
+        return;
     }
     await context.close();
 
