@@ -18,13 +18,12 @@ const playstationType = {
 /** Let's do this */
 (async function() {
     const choice = process.env.PS5_VERSION ? process.env.PS5_VERSION : await promptly.choose("Which version would you like? (disc or digital)", ["disc", "digital"]);
-    const alarm = process.env.PLAY_ALARM ? process.env.PLAY_ALARM : await promptly.choose("Would you like to hear a loud, annoying alarm when we find your PS5? (Y or N)", ["Y", "N"])
+    const alarm = process.env.PLAY_ALARM ? true : await promptly.confirm("Would you like to hear a loud, annoying alarm when we find your PS5? (y or n)", ["y", "n"])
     console.log(`Searching for PlayStation 5 ${choice} edition...`);
-    
     const onSuccess = () => {
         console.log("Found it! Opening queue now...");
         openURL(playstationType[choice].url);
-        if (alarm.toUpperCase() === "Y") {
+        if (alarm) {
             playAlarm();
         }
     };

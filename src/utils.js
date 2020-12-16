@@ -40,9 +40,7 @@ function addToCartLoop(id, guid, numTries, checkInterval = 10000) {
  * @param onSuccess - Callback function for successful redirect
  */
 async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, version, browser, numTries = 1) {
-    let response;
-    let responseBody;
-    let responseStatus;
+    let response, responseBody, responseStatus;
     const context = await browser.createIncognitoBrowserContext();
     const page = await context.newPage();
     const url = `https://direct.playstation.com/en-us/consoles/console/playstation5-console.${version}`;
@@ -53,6 +51,8 @@ async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, versi
         responseStatus = await response.status();
     } catch(err) {
         console.log("Error connecting to PlayStation Direct store.");
+        console.log(err);
+        return;
     }
     await context.close();
 
@@ -61,7 +61,7 @@ async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, versi
     // console.log(`Response status: ${responseStatus}`);
 
     if (responseBody && responseBody.indexOf("queue-it_log") > 0 && 
-        responseBody.indexOf("softblock") === -1) {
+    responseBody.indexOf("softblock") === -1) {
         onSuccess();
     } else {
         setTimeout(() => {
