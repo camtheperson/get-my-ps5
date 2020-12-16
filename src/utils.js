@@ -3,7 +3,7 @@ const fs = require("fs");
 const axios = require("axios").default;
 const cmd = require("node-cmd");
 
-/** addToCartLoop 
+/** addToCartLoop
  * Recursively tries to add a product to the cart
  * @return string
  */
@@ -49,7 +49,7 @@ async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, versi
         response = await page.goto(url);
         responseBody = await response.text();
         responseStatus = await response.status();
-    } catch(err) {
+    } catch (err) {
         console.log("Error connecting to PlayStation Direct store.");
         console.log(err);
         return;
@@ -60,8 +60,8 @@ async function checkForPlaystationDirectRedirect(checkInterval, onSuccess, versi
     // console.log(`Response body: ${responseBody}`);
     // console.log(`Response status: ${responseStatus}`);
 
-    if (responseBody && responseBody.indexOf("queue-it_log") > 0 && 
-    responseBody.indexOf("softblock") === -1) {
+    if (responseBody && responseBody.indexOf("queue-it_log") > 0 &&
+        responseBody.indexOf("softblock") === -1) {
         onSuccess();
     } else {
         setTimeout(() => {
@@ -87,23 +87,23 @@ function playAlarm() {
     }
 }
 
-/** openURL
+/** openUrl
  * Opens a URL using open, allows the users to configure
  * browser and incognito via .env
  * @param url string
  * @returns void
  */
-function openURL(url) {
+function openUrl(url) {
     const osChromeMap = {
         "darwin": "google chrome",
         "win32": "chrome",
         "linux": "google-chrome"
-    }
+    };
 
     const browserIncognitoMap = {
         "chrome": "--incognito",
         "firefox": "--private-window"
-    }
+    };
 
     let config = undefined;
 
@@ -126,22 +126,22 @@ function openURL(url) {
         const app = [browser];
 
         if (isKnownBrowser && process.env.INCOGNITO && incognitoKey) {
-            app.push(incognitoKey)
+            app.push(incognitoKey);
         }
 
-        config = { app, url: true };
+        config = {app, url: true};
     }
 
-    open(url, config)
+    open(url, config);
 }
 
-/** getGuid 
+/** getGuid
  * Get unique identifier (guid) used in subsequent results
  * Makes us look like we're human
  * @return string
  */
 async function getGuid() {
-    const response = await axios.post("https://api.direct.playstation.com/commercewebservices/ps-direct-us/users/anonymous/carts?fields=BASIC")
+    const response = await axios.post("https://api.direct.playstation.com/commercewebservices/ps-direct-us/users/anonymous/carts?fields=BASIC");
     return response.data.guid;
 }
 
@@ -149,6 +149,6 @@ module.exports = {
     addToCartLoop,
     checkForPlaystationDirectRedirect,
     getGuid,
-    openURL,
+    openUrl,
     playAlarm,
-}
+};

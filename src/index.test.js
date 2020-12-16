@@ -1,7 +1,7 @@
 const {getGuid} = require("./index");
 const axios = require("axios");
 
-jest.mock('axios');
+jest.mock("axios");
 
 describe("getGuid", () => {
     it("resolves to guid", async () => {
@@ -12,8 +12,8 @@ describe("getGuid", () => {
                 guid
             }
         });
-      
+
         const result = await getGuid();
         expect(result).toEqual(guid);
-      });
+    });
 });
