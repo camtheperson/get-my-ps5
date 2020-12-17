@@ -28,7 +28,7 @@ const playstationType = {
           playAlarm();
         }
     };
-    checkForPlaystationDirectRedirect(process.env.CHECK_INTERVAL || 5000, onSuccess, playstationType[choice].id, await puppeteer.launch());
+    checkForPlaystationDirectRedirect(process.env.CHECK_INTERVAL || 30000, onSuccess, playstationType[choice].id, await puppeteer.launch());
 })();
 
 // Gracefully exit
