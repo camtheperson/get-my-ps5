@@ -2,6 +2,8 @@
 
 ![Reddit conversation](./src/assets/bot-validation.jpg)
 
+Important note: this project is no longer maintained.
+
 A simple command line interface (CLI) utility that checks for PlayStation 5 (disc or digital edition) every 5 seconds, then opens your browser as soon as it's available.
 
 ## How can I support this project?
